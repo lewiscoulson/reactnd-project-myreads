@@ -10,8 +10,10 @@ class SearchPage extends Component {
 		matchingBooks: []
 	}
 
-	searchBooks = (query) => {
-		BooksAPI.search(query, 20).then((response) => {
+	searchBooks = (event) => {
+		let val = event.target.value;
+
+		BooksAPI.search(val, 20).then((response) => {
 			this.setState({
 				matchingBooks: response
 			})
@@ -23,22 +25,22 @@ class SearchPage extends Component {
 		const {matchingBooks} = this.state;
 
 		return (<div className="search-books">
-      <div className="search-books-bar">
-        <Link className="close-search" to="/">Close</Link>
-        <div className="search-books-input-wrapper">
-          <input 
-          	type="text"
-          	placeholder="Search by title or author"
-          	onChange={this.searchBooks} />
-        </div>
-      </div>
-      <div className="search-books-results">
-        <BookList
-        	books={matchingBooks}
-        	handleChangeOption={handleChangeOption}
-        />
-      </div>
-    </div>);
+	      <div className="search-books-bar">
+	        <Link className="close-search" to="/">Close</Link>
+	        <div className="search-books-input-wrapper">
+	          <input 
+	          	type="text"
+	          	placeholder="Search by title or author"
+	          	onChange={this.searchBooks} />
+	        </div>
+	      </div>
+	      <div className="search-books-results">
+	        <BookList
+	        	books={matchingBooks}
+	        	handleChangeOption={handleChangeOption}
+	        />
+	      </div>
+	    </div>);
 	}
 }
 

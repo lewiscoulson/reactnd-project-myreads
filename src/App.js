@@ -8,10 +8,7 @@ import './App.css'
 
 class BooksApp extends React.Component {
   state = {
-    books: [],
-    currentlyReading: [],
-    wantToRead: [],
-    read: []
+    books: []
   }
 
   componentDidMount() {
@@ -24,56 +21,41 @@ class BooksApp extends React.Component {
 
   getCurrentlyReadingBooks = () => {
     return this.state.books.filter((book) => {
-      // TODO: check that shelf state is being returned from service
-      return this.state.currentlyReading.indexOf(book.id) !== -1 || book.shelf === 'currentlyReading';
+      return book.shelf === 'currentlyReading';
     });
   }
 
   getWantToReadBooks = () => {
     return this.state.books.filter((book) => {
-      return this.state.wantToRead.indexOf(book.id) !== -1;
+      return book.shelf === 'wantToRead';
     });
   }
 
   getReadBooks = () => {
     return this.state.books.filter((book) => {
-      return this.state.read.indexOf(book.id) !== -1;
+      return book.shelf === 'read';
     });
   }
 
-  handleChangeOption = (event, bookID) => {
+  handleChangeOption = (event, book) => {
     let val = event.target.value;
 
-    BooksAPI.update({bookID}, val);
-
-    if (val === 'currentlyReading') {
-      this.setState((state) => ({
-        currentlyReading: state.currentlyReading.concat(bookID)
-      }));
-    } else if (val === 'wantToRead') {
-      this.setState((state) => ({
-        wantToRead: state.wantToRead.concat(bookID)
-      }));
-    } else if (val === 'read') {
-      this.setState((state) => ({
-        read: state.read.concat(bookID)
-      }));
-    } else if (val === 'none') {
-      this.setState((state) => ({
-        read: state.read.filter(id => bookID !== id),
-        currentlyReading: state.currentlyReading.filter(id => bookID !== id),
-        wantToRead: state.wantToRead.filter(id => bookID !== id)
-      }));
-    }
+    BooksAPI.update({id: book.id}, val).then((response) => {
+      BooksAPI.getAll().then((response) => {
+        this.setState({
+          books: response
+        });
+      })
+    });
   }
 
   render() {
     return (<div className="app">
       <Route exact path="/" render={() => (
         <BooksPage
-          getCurrentlyReadingBooks={this.getCurrentlyReadingBooks}
-          getWantToReadBooks={this.getWantToReadBooks}
-          getReadBooks={this.getReadBooks}
+          currentlyReadingBooks={this.getCurrentlyReadingBooks()}
+          wantToReadBooks={this.getWantToReadBooks()}
+          readBooks={this.getReadBooks()}
           handleChangeOption={this.handleChangeOption}
         />
       )} />

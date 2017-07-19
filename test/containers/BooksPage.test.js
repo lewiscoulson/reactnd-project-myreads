@@ -4,8 +4,8 @@ import BooksPage from '../../src/Containers/BooksPage'
 
 it('BooksPage', () => {
   shallow(<BooksPage
-  	getCurrentlyReadingBooks={() => []}
-  	getWantToReadBooks={() => []}
-  	getReadBooks={() => []}
+  	currentlyReadingBooks={[]}
+  	wantToReadBooks={[]}
+  	readBooks={[]}
   	handleChangeOption={() => {}} />);
 });

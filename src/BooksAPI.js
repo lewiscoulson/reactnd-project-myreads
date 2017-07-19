@@ -1,14 +1,16 @@
-
 const api = "https://reactnd-books-api.udacity.com"
+let localStorage;
 
+if (process.env.NODE_ENV === 'test') {
+  localStorage = {};
+} else {
+  localStorage = window.localStorage;
+}
 
 // Generate a unique token for storing your bookshelf data on the backend server.
-
-const token = Math.random().toString(36).substr(-8);
-
-if (window && window.localStorage) {
-  window.localStorage.token = token
-}
+let token = localStorage.token
+if (!token)
+  token = localStorage.token = Math.random().toString(36).substr(-8)
 
 const headers = {
   'Accept': 'application/json',

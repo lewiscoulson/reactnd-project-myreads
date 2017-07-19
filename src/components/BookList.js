@@ -7,10 +7,12 @@ const BookList = ({books, handleChangeOption}) => {
 	return (<ol className="books-grid">
       {books.map((book, index) => (<li key={index}>
         <Book
+          book={book}
           id={book.id}
           title={book.title}
-          image={book.imageLinks.thumbnail}
+          image={book.imageLinks ? book.imageLinks.thumbnail : ''}
           authors={book.authors}
+          shelf={book.shelf}
           onChangeOption={handleChangeOption}
         />
       </li>))}

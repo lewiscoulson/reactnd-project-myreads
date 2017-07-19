@@ -7,7 +7,7 @@ import BookList from '../components/BookList';
 
 class BooksPage extends Component {
 	render() {
-		const {getCurrentlyReadingBooks, getWantToReadBooks, getReadBooks, handleChangeOption} = this.props;
+		const {currentlyReadingBooks, wantToReadBooks, readBooks, handleChangeOption} = this.props;
 
 		return (<div className="list-books">
       <div className="list-books-title">
@@ -17,19 +17,19 @@ class BooksPage extends Component {
         <div>
         	<BookShelf title="Currently Reading">
         		<BookList
-                books={getCurrentlyReadingBooks()}
+                books={currentlyReadingBooks}
                 handleChangeOption={handleChangeOption} />
         	</BookShelf>
 
         	<BookShelf title="Want to Read">
         		<BookList
-                books={getWantToReadBooks()}
+                books={wantToReadBooks}
                 handleChangeOption={handleChangeOption} />
         	</BookShelf>
 
         	<BookShelf title="Read">
         		<BookList
-                books={getReadBooks()}
+                books={readBooks}
                 handleChangeOption={handleChangeOption} />
         	</BookShelf>
         </div>
@@ -42,9 +42,9 @@ class BooksPage extends Component {
 }
 
 BooksPage.propTypes = {
-	getCurrentlyReadingBooks: PropTypes.func.isRequired,
-	getWantToReadBooks: PropTypes.func.isRequired,
-	getReadBooks: PropTypes.func.isRequired,
+	currentlyReadingBooks: PropTypes.array.isRequired,
+	wantToReadBooks: PropTypes.array.isRequired,
+	readBooks: PropTypes.array.isRequired,
 	handleChangeOption: PropTypes.func.isRequired
 };
 
