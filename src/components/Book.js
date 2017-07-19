@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Book = ({title, authors, image, id, onChangeOption, shelf, book}) => {
+const Book = ({title, authors, image, id, onChangeOption, shelf}) => {
   return (
     <div className="book">
       <div className="book-top">
