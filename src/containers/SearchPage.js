@@ -14,9 +14,17 @@ class SearchPage extends Component {
 		let val = event.target.value;
 
 		BooksAPI.search(val, 20).then((response) => {
-			this.setState({
-				matchingBooks: response
-			})
+			let matchingBooks = response.map((book) => {
+				let match = this.props.books.filter((b) => b.id === book.id);
+
+				if (match.length) {
+					book['shelf'] = match[0].shelf;
+				}
+
+				return book;
+			});
+
+			this.setState({matchingBooks})
 		});
 	};
 
