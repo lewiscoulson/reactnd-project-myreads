@@ -37,10 +37,10 @@ class BooksApp extends React.Component {
     });
   }
 
-  handleChangeOption = (event, book) => {
+  handleChangeOption = (event, id) => {
     let val = event.target.value;
 
-    BooksAPI.update({id: book.id}, val).then((response) => {
+    BooksAPI.update({id}, val).then((response) => {
       BooksAPI.getAll().then((response) => {
         this.setState({
           books: response

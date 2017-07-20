@@ -7,7 +7,7 @@ const Book = ({title, authors, image, id, onChangeOption, shelf}) => {
       <div className="book-top">
         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${image})` }}></div>
         <div className="book-shelf-changer">
-          <select onChange={(event) => {onChangeOption(event, book) }}>
+          <select onChange={(event) => {onChangeOption(event, id) }}>
             <option value="">Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>
