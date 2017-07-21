@@ -12,20 +12,27 @@ class SearchPage extends Component {
 
 	searchBooks = (event) => {
 		let val = event.target.value;
+		let matchingBooks = [];
 
-		BooksAPI.search(val, 20).then((response) => {
-			let matchingBooks = response.map((book) => {
-				let match = this.props.books.filter((b) => b.id === book.id);
+		if (val) {
+			BooksAPI.search(val, 20).then((response) => {
+				if (response.length)  {
+					matchingBooks = response.map((book) => {
+						let match = this.props.books.filter((b) => b.id === book.id);
 
-				if (match.length) {
-					book['shelf'] = match[0].shelf;
+						if (match.length) {
+							book['shelf'] = match[0].shelf;
+						}
+
+						return book;
+					});
 				}
 
-				return book;
+				this.setState({matchingBooks})
 			});
-
+		} else {
 			this.setState({matchingBooks})
-		});
+		}
 	};
 
 	render() {
