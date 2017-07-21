@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Book from './Book';
 
-const BookList = ({books, handleChangeOption}) => {
-	return (<ol className="books-grid">
+class BookList extends Component {
+  render() {
+    const {books, handleChangeOption} = this.props;
+
+    return (<ol className="books-grid">
       {books.map((book, index) => (<li key={index}>
         <Book
           id={book.id}
@@ -16,7 +19,8 @@ const BookList = ({books, handleChangeOption}) => {
         />
       </li>))}
     </ol>);
-};
+  }
+}
 
 BookList.propTypes = {
 	books: PropTypes.array.isRequired,
